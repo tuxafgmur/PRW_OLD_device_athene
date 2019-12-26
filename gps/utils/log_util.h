@@ -99,6 +99,7 @@ extern char* get_timestamp(char* str, unsigned long buf_size);
   if that value remains unchanged, it means gps.conf did not
   provide a value and we default to the initial value to use
   Android's logging levels*/
+
 #define IF_LOC_LOGE if((loc_logger.DEBUG_LEVEL >= 1) && (loc_logger.DEBUG_LEVEL <= 5))
 #define IF_LOC_LOGW if((loc_logger.DEBUG_LEVEL >= 2) && (loc_logger.DEBUG_LEVEL <= 5))
 #define IF_LOC_LOGI if((loc_logger.DEBUG_LEVEL >= 3) && (loc_logger.DEBUG_LEVEL <= 5))
@@ -108,16 +109,26 @@ extern char* get_timestamp(char* str, unsigned long buf_size);
 #define LOC_LOGE(...) IF_LOC_LOGE { ALOGE(__VA_ARGS__); }
 #define LOC_LOGW(...) IF_LOC_LOGW { ALOGW(__VA_ARGS__); }
 #define LOC_LOGI(...) IF_LOC_LOGI { ALOGI(__VA_ARGS__); }
+#if 0
 #define LOC_LOGD(...) IF_LOC_LOGD { ALOGD(__VA_ARGS__); }
 #define LOC_LOGV(...) IF_LOC_LOGV { ALOGV(__VA_ARGS__); }
+#else
+#define LOC_LOGD(...)
+#define LOC_LOGV(...)
+#endif
 
 #else /* DEBUG_DMN_LOC_API */
 
 #define LOC_LOGE(...) ALOGE(__VA_ARGS__)
 #define LOC_LOGW(...) ALOGW(__VA_ARGS__)
 #define LOC_LOGI(...) ALOGI(__VA_ARGS__)
+#if 0
 #define LOC_LOGD(...) ALOGD(__VA_ARGS__)
 #define LOC_LOGV(...) ALOGV(__VA_ARGS__)
+#else
+#define LOC_LOGD(...)
+#define LOC_LOGV(...)
+#endif
 
 #endif /* DEBUG_DMN_LOC_API */
 
@@ -139,14 +150,21 @@ extern char* get_timestamp(char* str, unsigned long buf_size);
     } while(0)
 
 #define LOC_LOG_HEAD(fmt) "%s:%d] " fmt
-#define LOC_LOGv(fmt,...) LOC_LOGV(LOC_LOG_HEAD(fmt), __FUNCTION__, __LINE__, ##__VA_ARGS__)
 #define LOC_LOGw(fmt,...) LOC_LOGW(LOC_LOG_HEAD(fmt), __FUNCTION__, __LINE__, ##__VA_ARGS__)
 #define LOC_LOGi(fmt,...) LOC_LOGI(LOC_LOG_HEAD(fmt), __FUNCTION__, __LINE__, ##__VA_ARGS__)
-#define LOC_LOGd(fmt,...) LOC_LOGD(LOC_LOG_HEAD(fmt), __FUNCTION__, __LINE__, ##__VA_ARGS__)
 #define LOC_LOGe(fmt,...) LOC_LOGE(LOC_LOG_HEAD(fmt), __FUNCTION__, __LINE__, ##__VA_ARGS__)
 
-#define LOG_I(ID, WHAT, SPEC, VAL) LOG_(LOC_LOGI, ID, WHAT, SPEC, VAL)
+# if 0
+#define LOC_LOGd(fmt,...) LOC_LOGD(LOC_LOG_HEAD(fmt), __FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define LOC_LOGv(fmt,...) LOC_LOGV(LOC_LOG_HEAD(fmt), __FUNCTION__, __LINE__, ##__VA_ARGS__)
 #define LOG_V(ID, WHAT, SPEC, VAL) LOG_(LOC_LOGV, ID, WHAT, SPEC, VAL)
+#else
+#define LOC_LOGd(fmt,...)
+#define LOC_LOGv(fmt,...)
+#define LOG_V(ID, WHAT, SPEC, VAL)
+#endif
+
+#define LOG_I(ID, WHAT, SPEC, VAL) LOG_(LOC_LOGI, ID, WHAT, SPEC, VAL)
 #define LOG_E(ID, WHAT, SPEC, VAL) LOG_(LOC_LOGE, ID, WHAT, SPEC, VAL)
 
 #define ENTRY_LOG() LOG_V(ENTRY_TAG, __FUNCTION__, %s, "")
