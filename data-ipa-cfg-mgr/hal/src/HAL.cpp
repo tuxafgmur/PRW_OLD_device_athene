@@ -27,7 +27,7 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #ifndef DBG
-    #define DBG true
+    #define DBG false
 #endif /* DBG */
 #define LOG_TAG "IPAHALService"
 

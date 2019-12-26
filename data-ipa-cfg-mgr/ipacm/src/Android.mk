@@ -23,9 +23,9 @@ LOCAL_HEADER_LIBRARIES := generated_kernel_headers
 LOCAL_CFLAGS := -DFEATURE_IPA_ANDROID
 LOCAL_CFLAGS += -DFEATURE_IPACM_RESTART
 LOCAL_CFLAGS += -DFEATURE_IPACM_HAL -Wall -Werror -Wno-error=macro-redefined
-ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
-LOCAL_CFLAGS += -DDEBUG
-endif
+#ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
+#LOCAL_CFLAGS += -DDEBUG
+#endif
 
 ifeq ($(call is-board-platform-in-list,$(BOARD_IPAv3_LIST)),true)
 LOCAL_CFLAGS += -DFEATURE_IPA_V3
