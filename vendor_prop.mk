@@ -156,6 +156,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	vendor.iop.enable_prefetch_ofr=1 \
 	vendor.perf.iop_v3.enable=1 \
 	persist.vendor.qti.games.gt.prof=1 \
+	persist.vendor.perfservice.disable=true \
 	ro.vendor.gt_library=libqti-gt.so \
 	ro.vendor.at_library=libqti-at.so \
 	ro.vendor.extension_library=libqti-perfd-client.so \
