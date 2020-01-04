@@ -7,7 +7,8 @@
 WSYSTEMDIR=$1
 
 sed '/ro.expect.recovery_id/d'          -i $WSYSTEMDIR/build.prop
-sed '/dalvik.vm.stack-trace-file/d'     -i $WSYSTEMDIR/build.prop
+sed '/dalvik.vm.stack-trace/d'          -i $WSYSTEMDIR/build.prop
+
 FirstSortLine=`grep -n 'Additional Build Properties' $WSYSTEMDIR/build.prop | cut -d: -f1`
 LastSortLine=`wc -l $WSYSTEMDIR/build.prop | cut -d ' ' -f1`
 head -n $FirstSortLine $WSYSTEMDIR/build.prop > $WSYSTEMDIR/build.new
